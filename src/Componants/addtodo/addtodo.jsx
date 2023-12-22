@@ -1,11 +1,8 @@
-import { useContext, useState } from "react";
-import todoDispatchcontext from "../../Context/todoDispatchcontext.js";
+import { useState } from "react";
 
-function Addtodo() {
+function Addtodo({addTodo}) {
   // Usestate for Adding Todo
-  const [inputtext, setinputtext] = useState("");
-  const { dispatch } = useContext(todoDispatchcontext);
-
+  const [inputtext,setinputtext]=useState('');
   // UI Part
   return (
     <div>
@@ -19,7 +16,7 @@ function Addtodo() {
       <button
         style={{ marginLeft: "15px" }}
         onClick={() => {
-          dispatch({ type: "add_todo", payload: { todoText: inputtext } });
+          addTodo(inputtext);
           setinputtext("");
         }}
       >

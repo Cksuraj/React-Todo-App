@@ -1,21 +1,20 @@
-import React, { useReducer } from 'react';
+import { useDispatch } from 'react-redux';
 import './App.css';
-import TodoContext from './Context/TodoContext.js';
 import Addtodo from './Componants/addtodo/addtodo';
 import Todolist from './Componants/todolist/todolist';
-import TodoDispatchcontext from './Context/todoDispatchcontext.js';
-import TodoReducer from './reducers/todoReducer.js';
-
+import { addTodo, deleteTodo,todoFinished,editTodo } from './actions/todoactions';
+import { bindActionCreators } from 'redux';
+//Biniding the actionCreators of componante
+// Added Redux_Toolkit and Optimized the funtional componant
 function App() {
-  const [list, dispatch] = useReducer(TodoReducer, []);
 
+  const dispatch= useDispatch();
+  const actions =bindActionCreators({addTodo,deleteTodo,todoFinished,editTodo},dispatch)
   return (
-    <TodoContext.Provider value={{list}}>
-      <TodoDispatchcontext.Provider value={{ dispatch }}>
-        <Addtodo />
-        <Todolist />
-      </TodoDispatchcontext.Provider>
-    </TodoContext.Provider>
+    <>
+      <Addtodo addTodo={actions.addTodo} />
+        <Todolist deleteTodo={actions.deleteTodo} editTodo={actions.editTodo} todoFinished={actions.todoFinished} />
+    </>
   );
 }
 

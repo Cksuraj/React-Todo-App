@@ -18,6 +18,7 @@ function Todo({ tododata, isFinished, changeFinished, onDelete, onEdit }) {
         alignItems: "center",
         flexDirection: "row",
         gap: "20px",
+        marginTop:'15px'
       }}
     >
       <input

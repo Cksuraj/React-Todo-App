@@ -1,34 +1,27 @@
+import { useDispatch, useSelector } from "react-redux";
 import Todo from "../todo/todo";
-import TodoContext from "../../Context/TodoContext.js";
-import { useContext } from "react";
-import todoDispatchcontext from "../../Context/todoDispatchcontext.js";
 
-function Todolist() {
-  // UseContext for adding Todo in List
-  const { list } = useContext(TodoContext);
-  const { dispatch } = useContext(todoDispatchcontext);
-
+function Todolist({ editTodo, deleteTodo, todoFinished,} ) {
+  const dispatch = useDispatch();
+  const list = useSelector((state) => state.todo);
   // # OnFinished Funtion
   function onFinished(todo, isFinished) {
-    dispatch({
-      type: "finish_todo",
-      payload: { todo, isFinished: isFinished },
-    });
+    todoFinished(todo,isFinished)
   }
 
   // OnDelete Funtion
   function onDelete(todo) {
-    dispatch({ type: "delete_todo", payload: { todo } });
+  deleteTodo(todo);
   }
 
   // OnEdit Funtion
   function onEdit(todo, todoText) {
-    dispatch({ type: "edit_todo", payload: { todo, todoText } });
+    editTodo(todo, todoText);
   }
 
   // JSX part
   // Funtion callbacks, Parameters, map, conditional rendering
-  // oneliner arrow funtion  
+  // oneliner arrow funtion
   return (
     <div>
       {list.length > 0 &&
